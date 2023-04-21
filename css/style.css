@@ -65,6 +65,23 @@ section {
   .header-right {
     float: right;
   }
+
+  .Second-Header {
+    overflow: hidden;
+
+    background-color: #f1f1f1;
+    padding: 20px 10px;
+  }
+  
+  .Second-Header input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+  }
+
   
   @media screen and (max-width: 500px) {
     .header a {
@@ -76,3 +93,4 @@ section {
       float: none;
     }
   }
+
