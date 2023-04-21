@@ -6,29 +6,41 @@ body {
     margin-right: auto;
 }
 
-h1 {
-    color: black;
-    text-align: center;
-}
 section {
     height: 100vh;
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+
+#home .section-inner {
+    border: 1px solid rgb(250, 250, 250);
+    height: calc(100vh - 200px);
+    width: 90%;
+    display: flex;
+    margin: auto;
+  }
+
+#beach .section-inner{
+    border: 1px solid rgb(250, 250, 250);
+    height: calc(100vh - 200px);
+    width: 90%;
+    display: flex;
+    margin: auto;
+}
+
+#about .section-inner{
+    border: 1px solid rgb(250, 250, 250);
+    height: calc(100vh - 200px);
+    width: 90%;
+    display: flex;
+    margin: auto;
 }
 
 
-#home {
-    background-image: linear-gradient(rgba(255,255,255,0.75),rgba(255,255,255,0.75)), url('https://www.themunicipal.com/wp-content/uploads/2015/09/racine-beachfront.jpg');
-}
-
+/* Headers */
 .header {
     overflow: hidden;
     background-color: #f1f1f1;
@@ -66,10 +78,11 @@ section {
     float: right;
   }
 
+  /*Second Header*/
   .Second-Header {
     overflow: hidden;
 
-    background-color: #f1f1f1;
+    background-color: #dfdfdf;
     padding: 20px 10px;
   }
   
@@ -77,9 +90,11 @@ section {
     float: right;
     padding: 6px;
     border: none;
-    margin-top: 8px;
-    margin-right: 16px;
     font-size: 17px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    
   }
 
   
@@ -93,4 +108,3 @@ section {
       float: none;
     }
   }
-
