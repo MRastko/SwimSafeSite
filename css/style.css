@@ -136,7 +136,7 @@ button[type="submit"]:hover {
 }
 
 .tab {
-  background: #82B3C6d0;
+  background: #333333d0;
   color: white;
   padding: 2em;
   border-radius: 30px;
@@ -150,7 +150,7 @@ h2.tab {
 }
 
 .tab button {
-  background-color: #00A896;
+  background-color: #333333e0;
   color: rgb(255, 255, 255);
   padding: 16px 16px;
   margin: 0.5em;
@@ -173,7 +173,7 @@ h2.tab {
 }
 
 .tabcontent {
-  background: #82B3C6d0;
+  background: #333333d0;
   color: white;
   padding: 2em;
   border-radius: 30px;
@@ -183,7 +183,7 @@ h2.tab {
 }
 
 .tab-right {
-  background: #82B3C6d0;
+  background: #333333d0;
   color: white;
   padding: 2em;
   border-radius: 30px;
