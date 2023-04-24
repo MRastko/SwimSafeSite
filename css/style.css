@@ -12,8 +12,8 @@ body {
 section {
     height: 100vh;
     display: flex;
-    justify-content: left;
-    align-items: left;
+    justify-content: center;
+    align-items: center;
 }
 
 #home {
@@ -29,7 +29,7 @@ section {
   width: 90%;
   margin: auto;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #about .container{
