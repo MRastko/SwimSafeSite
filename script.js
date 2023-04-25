@@ -24,8 +24,9 @@ function openCity(evt, cityName) {
     
     search: function () {
       const cityName = document.querySelector('.search-bar').value;
-      fetchCityCord: function() {
-        fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
+      CityCord: function() {
+        fetch(
+          'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
         ).then((response) => response.json())
         .then((data) => this.getCityName(data))
       }
