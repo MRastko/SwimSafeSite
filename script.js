@@ -21,6 +21,20 @@ function openCity(evt, cityName) {
 
   let weather = {
     "apikey": "466ad755aefc94f4327508b92d24f522",
+    
+    search: function () {
+      const cityName = document.querySelector('.search-bar').value;
+      fetchCityCord: function() {
+        fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
+        ).then((response) => response.json())
+        .then((data) => this.getCityName(data))
+      }
+    },
+    getCityName: function(data) {
+
+    },
+
+
     fetchWeather: function(latCity, lonCity) {
       fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" + latCity + "&lon=" + lonCity + "&units=metric&appid=" + this.apikey
@@ -43,9 +57,6 @@ function openCity(evt, cityName) {
       document.querySelector(".wind").innerText =
         "Wind speed: " + speed + " km/h";
     },
-    search: function () {
-      this.fetchWeather(document.querySelector(".search-bar").value);
-    }    
   }
 
   document.querySelector(".search button").addEventListener("click", function () {
