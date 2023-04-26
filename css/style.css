@@ -33,12 +33,12 @@ section {
 }
 
 #about .container{
-  border: 1px solid #333;
+  border: none;
   height: calc(100vh - 200px);
   width: 90%;
   margin: auto;
-  display: inline-block;
-  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
 }
 
 .header {
@@ -149,16 +149,20 @@ h2.tab {
 .tab button {
   background-color: #333333e0;
   color: rgb(255, 255, 255);
+
   padding: 16px 16px;
-  margin: 0.5em;
+
   border: none;
   border-radius: 30px;
   outline: none;
+
   text-align: left;
-  cursor: pointer;
   font-size: 18px;
 
-  width: calc(100% - 1.5em);
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  width: 100%;
 }
 
 .tab button:hover {
@@ -211,4 +215,26 @@ h3 {
     float: none;
     width: 100%;
   }
+}
+
+
+.tab-left-about {
+  background: #333333d0;
+  color: white;
+  padding: 2em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  margin: 1em;
+}
+
+.tab-right-contact {
+  background: #333333d0;
+  color: white;
+  padding: 2em;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 420px;
+  margin: 1em;
+  text-decoration: none;
 }

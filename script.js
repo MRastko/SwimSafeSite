@@ -1,3 +1,4 @@
+/*
 function openCity(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -18,58 +19,57 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+  */
 
   let weather = {
     "apikey": "466ad755aefc94f4327508b92d24f522",
     
-    search: function () {
-      const cityName = document.querySelector('.search-bar').value;
-      CityCord: function() {
-        fetch(
-          'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
-        ).then((response) => response.json())
-        .then((data) => this.getCityName(data))
-      }
+    cityCords: function(cityName) {
+      fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
+      ).then((response) => response.json())
+      .then((data) => {
+        const { lat, lon } = data[0];
+        console.log(lat,lon)
+        this.fetchWeather(lat, lon);
+      })
     },
-    getCityName: function(data) {
-
-    },
-
-
-    fetchWeather: function(latCity, lonCity) {
+  
+    fetchWeather: function(lat, lon) {
       fetch(
-        "https://api.openweathermap.org/data/2.5/weather?lat=" + latCity + "&lon=" + lonCity + "&units=metric&appid=" + this.apikey
+        "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + this.apikey
       ).then((response) => response.json())
       .then((data) => this.displayWeather(data))
     },
+
     displayWeather: function(data) {
       const { name } = data;
       const { icon, description } = data.weather[0];
       const { temp, humidity } = data.main;
       const { speed } = data.wind;
       console.log(name,icon,description,temp,humidity,speed)
-      document.querySelector(".city").innerText = "Weather in " + name;
-      document.querySelector(".icon").src =
-      "https://openweathermap.org/img/wn/" + icon + ".png";
-      document.querySelector(".description").innerText = description;
-      document.querySelector(".temp").innerText = temp + "°C";
-      document.querySelector(".humidity").innerText =
-        "Humidity: " + humidity + "%";
-      document.querySelector(".wind").innerText =
-        "Wind speed: " + speed + " km/h";
+      document.getElementById("North Beach").querySelector(".city").innerText = "Weather in " + name;
+      document.getElementById("North Beach").querySelector(".icon").src ="https://openweathermap.org/img/wn/" + icon + ".png";
+      document.getElementById("North Beach").querySelector(".description").innerText = description;
+      document.getElementById("North Beach").querySelector(".temp").innerText = Math.round(temp) + "°C";
+      document.getElementById("North Beach").querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
+      document.getElementById("North Beach").querySelector(".wind").innerText = "Wind speed: " + speed + " km/h";
     },
-  }
+    search: function () {
+      this.cityCords(document.querySelector(".search-bar").value);
+    },
+  };
 
   document.querySelector(".search button").addEventListener("click", function () {
     weather.search();
   });
-
+  
   document
-  .querySelector(".search-bar")
-  .addEventListener("keyup", function (event) {
-    if (event.key == "Enter") {
-      weather.search();
-    }
-  });
+    .querySelector(".search-bar")
+    .addEventListener("keyup", function (event) {
+      if (event.key == "Enter") {
+        weather.search();
+      }
+    });
 
-  weather.fetchWeather("42.7260523", "-87.7825242");
+  weather.cityCords("Racine")
+
