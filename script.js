@@ -36,7 +36,7 @@ function openCity(evt, cityName) {
   
     fetchWeather: function(lat, lon) {
       fetch(
-        "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + this.apikey
+        "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + this.apikey
       ).then((response) => response.json())
       .then((data) => this.displayWeather(data))
     },
@@ -50,9 +50,9 @@ function openCity(evt, cityName) {
       document.getElementById("North Beach").querySelector(".city").innerText = "Weather in " + name;
       document.getElementById("North Beach").querySelector(".icon").src ="https://openweathermap.org/img/wn/" + icon + ".png";
       document.getElementById("North Beach").querySelector(".description").innerText = description;
-      document.getElementById("North Beach").querySelector(".temp").innerText = Math.round(temp) + "°C";
+      document.getElementById("North Beach").querySelector(".temp").innerText = Math.round(temp) + "°F";
       document.getElementById("North Beach").querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
-      document.getElementById("North Beach").querySelector(".wind").innerText = "Wind speed: " + speed + " km/h";
+      document.getElementById("North Beach").querySelector(".wind").innerText = "Wind speed: " + Math.round(speed) + " Mph";
     },
     search: function () {
       this.cityCords(document.querySelector(".search-bar").value);
