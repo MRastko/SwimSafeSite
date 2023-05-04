@@ -21,70 +21,69 @@ function openCity(evt, cityName) {
   }
   */
 
-  let weather = {
-    "apikey": "466ad755aefc94f4327508b92d24f522",
-    lat: 0,
-    lon: 0, 
-    grid: 0,
-    office: null,
-    
-    fetchWeather: function(cityName) {
-      fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
-      ).then((response) => response.json())
-      .then((data) => {
-        const { lat, lon } = data[0];
-        console.log(lat,lon)
-        this.cityCords(lat, lon);
-      })
-    },
 
-    beachGrid: function(lat, lon){
-      fetch(
-        "https://api.weather.gov/points/" + lat + "," + lon
-      ).then((response) => response.json())
-      .then((data) =>{
-        const { gridY, gridX } = data.properties[0];
-        console.log(gridY,gridX)
-      })
-    },
-  
-    cityCords: function(lat, lon) {
-      fetch(
-        "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + this.apikey
-      ).then((response) => response.json())
-      .then((data) => this.displayWeather(data))
-    },
+const weather = {
+  apiKey: "466ad755aefc94f4327508b92d24f522",
 
+  fetchWeather: async function(cityName) {
+    try {
+      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${this.apiKey}`;
+      const geoResponse = await fetch(geoUrl);
+      const geoData = await geoResponse.json();
 
-    displayWeather: function(data) {
-      const { name } = data;
-      const { icon, description } = data.weather[0];
-      const { temp, humidity } = data.main;
-      const { speed } = data.wind;
-      console.log(name,icon,description,temp,humidity,speed)
-      document.getElementById("North Beach").querySelector(".city").innerText = "Weather in " + name;
-      document.getElementById("North Beach").querySelector(".icon").src ="https://openweathermap.org/img/wn/" + icon + ".png";
-      document.getElementById("North Beach").querySelector(".description").innerText = description;
-      document.getElementById("North Beach").querySelector(".temp").innerText = Math.round(temp) + "°F";
-      document.getElementById("North Beach").querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
-      document.getElementById("North Beach").querySelector(".wind").innerText = "Wind speed: " + Math.round(speed) + " Mph";
-    },
-    search: function () {
-      this.fetchWeather(document.querySelector(".search-bar").value);
-    },
-  };
+      const { lat, lon } = geoData[0];
+      console.log(lat, lon)
 
-  document.querySelector(".search button").addEventListener("click", function () {
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`;
+      const weatherResponse = await fetch(weatherUrl);
+      const weatherData = await weatherResponse.json();
+
+      this.displayWeather(weatherData);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  displayWeather: function(data) {
+    const { name } = data;
+    const { icon, description } = data.weather[0];
+    const { temp, humidity } = data.main;
+    const { speed } = data.wind;
+
+    console.log(name, icon, description, temp, humidity, speed)
+
+    const cityElement        = document.getElementById("North Beach").querySelector(".city");
+    const iconElement        = document.getElementById("North Beach").querySelector(".icon");
+    const descriptionElement = document.getElementById("North Beach").querySelector(".description");
+    const tempElement        = document.getElementById("North Beach").querySelector(".temp");
+    const humidityElement    = document.getElementById("North Beach").querySelector(".humidity");
+    const windElement        = document.getElementById("North Beach").querySelector(".wind");
+
+    cityElement.innerText = `Weather in ${name}`;
+    iconElement.src = `https://openweathermap.org/img/wn/${icon}.png`;
+    descriptionElement.innerText = description;
+    tempElement.innerText = `${Math.round(temp)}°F`;
+    humidityElement.innerText = `Humidity: ${humidity}%`;
+    windElement.innerText = `Wind speed: ${Math.round(speed)} Mph`;
+  },
+
+  search: function () {
+    const searchBarElement = document.querySelector(".search-bar");
+    const cityName = searchBarElement.value;
+    this.fetchWeather(cityName);
+  },
+};
+
+const searchButtonElement = document.querySelector(".search button");
+searchButtonElement.addEventListener("click", function () {
+  weather.search();
+});
+
+const searchBarElement = document.querySelector(".search-bar");
+searchBarElement.addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
     weather.search();
-  });
-  
-  document
-    .querySelector(".search-bar")
-    .addEventListener("keyup", function (event) {
-      if (event.key == "Enter") {
-        weather.search();
-      }
-    });
+  }
+});
 
-  weather.fetchWeather("Racine")
-
+weather.fetchWeather("Racine");
