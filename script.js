@@ -23,23 +23,38 @@ function openCity(evt, cityName) {
 
   let weather = {
     "apikey": "466ad755aefc94f4327508b92d24f522",
+    lat: 0,
+    lon: 0, 
+    grid: 0,
+    office: null,
     
-    cityCords: function(cityName) {
+    fetchWeather: function(cityName) {
       fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=1&appid=' + this.apikey
       ).then((response) => response.json())
       .then((data) => {
         const { lat, lon } = data[0];
         console.log(lat,lon)
-        this.fetchWeather(lat, lon);
+        this.cityCords(lat, lon);
+      })
+    },
+
+    beachGrid: function(lat, lon){
+      fetch(
+        "https://api.weather.gov/points/" + lat + "," + lon
+      ).then((response) => response.json())
+      .then((data) =>{
+        const { gridY, gridX } = data.properties[0];
+        console.log(gridY,gridX)
       })
     },
   
-    fetchWeather: function(lat, lon) {
+    cityCords: function(lat, lon) {
       fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + this.apikey
       ).then((response) => response.json())
       .then((data) => this.displayWeather(data))
     },
+
 
     displayWeather: function(data) {
       const { name } = data;
@@ -55,7 +70,7 @@ function openCity(evt, cityName) {
       document.getElementById("North Beach").querySelector(".wind").innerText = "Wind speed: " + Math.round(speed) + " Mph";
     },
     search: function () {
-      this.cityCords(document.querySelector(".search-bar").value);
+      this.fetchWeather(document.querySelector(".search-bar").value);
     },
   };
 
@@ -71,5 +86,5 @@ function openCity(evt, cityName) {
       }
     });
 
-  weather.cityCords("Racine")
+  weather.fetchWeather("Racine")
 
