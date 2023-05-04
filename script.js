@@ -40,7 +40,7 @@ function openCity(evt, cityName) {
 
     beachGrid: function(lat, lon){
       fetch(
-        "https://api.weather.gov/points/" + lat + "," + lon
+        'https://api.weather.gov/points/' + lat + ',' + lon
       ).then((response) => response.json())
       .then((data) =>{
         const { gridY, gridX } = data.properties[0];
