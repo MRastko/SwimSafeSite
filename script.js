@@ -34,8 +34,16 @@ const weather = {
       const { lat, lon } = geoData[0];
       console.log(lat, lon)
 
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${this.apiKey}`;
-      const weatherResponse = await fetch(weatherUrl);
+      const locationUrl = `https://api.weather.gov/points/${lat},${lon}`;
+      const locationResponse = await fetch(locationUrl);
+      const locationData = await locationResponse.json();
+
+      const { cwa } = locationData.properties;
+      const { gridX, gridY } = locationData.properties;
+      console.log(cwa, gridX, gridY)
+
+      const weatherurl = `https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/forecast`;
+      const weatherResponse = await fetch(weatherurl);
       const weatherData = await weatherResponse.json();
 
       this.displayWeather(weatherData);
