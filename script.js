@@ -53,12 +53,14 @@ const weather = {
   },
 
   displayWeather: function(data) {
-    const { name } = data;
-    const { icon, description } = data.weather[0];
-    const { temp, humidity } = data.main;
-    const { speed } = data.wind;
+    const { startTime }  = data.properties.period.startTime;
+    const { endTime } = data.properties.period.forecastNumber1.endTime;
+    const { temperature } = data.properties.period.temperature;
+    const { temperatureUnit } = data.properties.period.temperatureUnit;
+    const { shortForecast } = data.properties.period.shortForecast;
+    const { detailedForecast } = data.properties.period.detailedForecast;
 
-    console.log(name, icon, description, temp, humidity, speed)
+    console.log(startTime, endTime, temperature, temperatureUnit, shortForecast, detailedForecast)
 
     const cityElement        = document.getElementById("North Beach").querySelector(".city");
     const iconElement        = document.getElementById("North Beach").querySelector(".icon");
