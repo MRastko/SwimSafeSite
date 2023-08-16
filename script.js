@@ -32,7 +32,8 @@ const weather = {
       const geoData = await geoResponse.json();
 
       const { lat, lon } = geoData[0];
-      console.log(lat, lon)
+      const { name } = geoData[0];
+      console.log(name, lat, lon)
 
       const locationUrl = `https://api.weather.gov/points/${lat},${lon}`;
       const locationResponse = await fetch(locationUrl);
@@ -45,22 +46,24 @@ const weather = {
       const weatherurl = `https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/forecast`;
       const weatherResponse = await fetch(weatherurl);
       const weatherData = await weatherResponse.json();
+      //https://api.weather.gov/gridpoints/MKX/93,51/forecast
 
-      this.displayWeather(weatherData);
+      this.displayWeather(weatherData, name);
     } catch (error) {
       console.log(error);
     }
   },
 
-  displayWeather: function(data) {
-    const { startTime }  = data.properties.period.startTime;
-    const { endTime } = data.properties.period.forecastNumber1.endTime;
-    const { temperature } = data.properties.period.temperature;
-    const { temperatureUnit } = data.properties.period.temperatureUnit;
-    const { shortForecast } = data.properties.period.shortForecast;
-    const { detailedForecast } = data.properties.period.detailedForecast;
+  displayWeather: function(weatherData, name) {
+    const { number } = weatherData.properties.periods[0];
+    const { startTime }  = weatherData.properties.periods[0];
+    const { endTime } = weatherData.properties.periods[0];
+    const { temperature } = weatherData.properties.periods[0];
+    const { temperatureUnit } = weatherData.properties.periods[0];
+    const { shortForecast } = weatherData.properties.periods[0];
+    const { detailedForecast } = weatherData.properties.periods[0];
 
-    console.log(startTime, endTime, temperature, temperatureUnit, shortForecast, detailedForecast)
+    console.log(number, startTime, endTime, temperature, temperatureUnit, shortForecast, detailedForecast)
 
     const cityElement        = document.getElementById("North Beach").querySelector(".city");
     const iconElement        = document.getElementById("North Beach").querySelector(".icon");
