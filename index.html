@@ -32,17 +32,19 @@
     <section id="home">
         <div class="container">
          <div class="tab-left">
-            <button class="tablinks" onmouseover="openCity(event, 'North Beach')">North Beach</button>
-            <button class="tablinks" onmouseover="openCity(event, 'Bradford Beach')">Bradford Beach</button>
-            <button class="tablinks" onmouseover="openCity(event, 'Brittingham Beach')">Brittingham Beach</button>
+            <button class="tablinks" onclick="cities('Your Location')">Your Location</button>
+            <button class="tablinks" onmouseover="cities('North Beach')">North Beach</button>
+            <button class="tablinks" onmouseover="cities('Bradford Beach')">Bradford Beach</button>
+            <button class="tablinks" onmouseover="cities('Brittingham Beach')">Brittingham Beach</button>
           </div>
-          <div id ="BeachInfo"class="tab-middle">
-            <h2 class="city"> Weather at North Beach</h2>
-            <h3 class="temp">76°F</h3>
+          <div id ="beachinfo"class="tab-middle">
+            <h2 id="city"> Weather at North Beach</h2>
+            <h3 id="temp">76°F</h3>
             <img src="" alt="" class="icon" />
-            <div class="description">Partly Cloudy</div>
-            <div class="wind">Wind Speed: 8km</div>
-            <div class="humidity ">Humidity: 78%</div>
+            <div id="description">Partly Cloudy</div>
+            <div id="wind">Wind Speed: 8km</div>
+            <div id="humidity ">Humidity: 78%</div>
+            <p id="demo"></p>
           </div>
           <div class="tab-right">
             <h1>Beach Safety</h1>
