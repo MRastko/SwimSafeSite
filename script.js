@@ -1,17 +1,35 @@
 
-function cities(cityName) {
-  document.getElementById("city").innerHTML = cityName;
-  const x = document.getElementById("demo");
+function cityButtons(cityName) {
+  weather.fetchWeather(cityName)
+}
+
+function localWeather() {
+  let x = Number;
   try {
     navigator.geolocation.getCurrentPosition(showPosition);
-  } catch {
-    x.innerHTML = err;
+  } catch (error) {
+    console.log(error);
   }
 
 
-  function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
+  async function showPosition(position, ) {
+    const lat = position.coords.latitude
+    const lon = position.coords.longitude
+    document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;
+    console.log(lat, lon)
+
+    try {    
+      const locationUrl = `https://api.weather.gov/points/${lat},${lon}`;
+      const locationResponse = await fetch(locationUrl);
+      const locationData = await locationResponse.json();
+
+      const { city } = locationData.properties.relativeLocation.properties;
+      console.log(city)
+      weather.fetchWeather(city)
+    } catch (error) {
+    console.log(error);
+    }
   }
 }
 
