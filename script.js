@@ -4,7 +4,6 @@ function cityButtons(cityName) {
 }
 
 function localWeather() {
-  let x = Number;
   try {
     navigator.geolocation.getCurrentPosition(showPosition);
   } catch (error) {
@@ -27,12 +26,24 @@ function localWeather() {
       const { city } = locationData.properties.relativeLocation.properties;
       console.log(city)
       weather.fetchWeather(city)
+      return(city)
     } catch (error) {
     console.log(error);
     }
   }
 }
 
+function convertToLocalTime(isoDateTime) {
+  const date = new Date(isoDateTime);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZoneName: "short"
+  };
+
+  return date.toLocaleString("en-US", options);
+}
 
 
 const weather = {
@@ -74,23 +85,25 @@ const weather = {
     const { temperature } = weatherData.properties.periods[0];
     const { temperatureUnit } = weatherData.properties.periods[0];
     const { shortForecast } = weatherData.properties.periods[0];
-    const { detailedForecast } = weatherData.properties.periods[0];
+    const { windSpeed } = weatherData.properties.periods[0];
 
-    console.log(number, startTime, endTime, temperature, temperatureUnit, shortForecast, detailedForecast)
+    const isoDateStartTime = startTime;
+    const isoDateEndTime = startTime;
+    const convertedStartTime = convertToLocalTime(isoDateStartTime);
+    const convertedEndTime = convertToLocalTime(isoDateEndTime);
 
-    const cityElement        = document.getElementById("North Beach").querySelector(".city");
-    const iconElement        = document.getElementById("North Beach").querySelector(".icon");
-    const descriptionElement = document.getElementById("North Beach").querySelector(".description");
-    const tempElement        = document.getElementById("North Beach").querySelector(".temp");
-    const humidityElement    = document.getElementById("North Beach").querySelector(".humidity");
-    const windElement        = document.getElementById("North Beach").querySelector(".wind");
+    console.log(number, convertedStartTime, convertedEndTime, temperature, temperatureUnit, shortForecast, windSpeed)
+
+    const cityElement        = document.getElementById("beachinfo").querySelector("#city");
+    const descriptionElement = document.getElementById("beachinfo").querySelector("#description");
+    const tempElement        = document.getElementById("beachinfo").querySelector("#temp");
+    const humidityElement    = document.getElementById("beachinfo").querySelector("#humidity");
+    const windElement        = document.getElementById("beachinfo").querySelector("#wind");
 
     cityElement.innerText = `Weather in ${name}`;
-    iconElement.src = `https://openweathermap.org/img/wn/${icon}.png`;
-    descriptionElement.innerText = description;
-    tempElement.innerText = `${Math.round(temp)}°F`;
-    humidityElement.innerText = `Humidity: ${humidity}%`;
-    windElement.innerText = `Wind speed: ${Math.round(speed)} Mph`;
+    descriptionElement.innerText = shortForecast;
+    tempElement.innerText = `${Math.round(temperature)}°${temperatureUnit}`;
+    windElement.innerText = `Wind speed: ${windSpeed}`;
   },
 
   search: function () {
